@@ -1,10 +1,30 @@
 from math import sqrt
 from copy import deepcopy
+import csv
 from building.discrete_floor_transition import ElevatorState
 import settings as s
 
 import numpy as np
 import random
+
+
+def export_hall_calls_csv(passengers, output_path="hall_calls.csv"):
+    """Export one row per hall call for plotting and analysis."""
+    with open(output_path, mode="w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow([
+            "call_time_seconds",
+            "origin_floor",
+            "destination_floor",
+            "waiting_time_seconds"
+        ])
+        for passenger in passengers.values():
+            writer.writerow([
+                passenger.call_time_seconds,
+                passenger.origin_floor,
+                passenger.destination_floor,
+                passenger.waiting_time
+            ])
 
 
 def generate_available_actions(num_elevators=s.NUM_ELEVATORS):
@@ -59,6 +79,8 @@ if __name__ == "__main__":
 
     ctrl = Controller(building, agent, timesteps=s.EPISODE_LENGTH)
     ctrl.run()
+    export_hall_calls_csv(ctrl.building.passengers)
+    print("Hall call CSV written to hall_calls.csv")
     print("Delivered passengers: {}%".format(
         len([p for p in ctrl.building.passengers.values() if p.served]) / len(ctrl.building.passengers.values()) * 100
     ))

@@ -57,8 +57,11 @@ class Elevator:
 
 class Passenger:
     """Class that holds information about a single passenger."""
-    def __init__(self):
+    def __init__(self, call_time_seconds=0, origin_floor=None, destination_floor=None):
         self.id = uuid.uuid4().hex
+        self.call_time_seconds = call_time_seconds
+        self.origin_floor = origin_floor
+        self.destination_floor = destination_floor
         self.system_time = 0
         self.waiting_time = 0
         self.in_elevator = False

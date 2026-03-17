@@ -7,3 +7,7 @@ log.out
 model/
 summaries/
 weights/
+.venv38/
+.python-version
+hall_calls.csv
+hall_call_traffic_distribution.png

@@ -1,12 +1,12 @@
 # Simulation config
 TICK_LENGTH_IN_SECONDS = 3
 AVERAGE_CALL_FREQUENCY = 1
-EPISODE_LENGTH = 3600
+EPISODE_LENGTH = 28800
 RANDOM_SEED = 0xDEADBE
 REWARD_DELIVERED_PASSENGER = 2
 
 # Building config
-NUM_FLOORS = 10
+NUM_FLOORS = 12
 NUM_ELEVATORS = 4
 ELEVATOR_MAX_CAPACITY = 20
 # One of mixed, interfloor, up-peak, and down-peak (case sensitive)
@@ -14,7 +14,7 @@ TRAFFIC_PROFILE = "mixed"
 
 # Benchmark agent config
 # Must be one of rr (Round Robin), rand (Random Policy), sz (Static Zoning), up (Up-Peak), nc (Nearest Car), and eta (ETA) 
-BENCHMARK_AGENT_TYPE = "eta"
+BENCHMARK_AGENT_TYPE = "sz"
 
 # General agent config
 NUM_ITERATIONS = 100000000
