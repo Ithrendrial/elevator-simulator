@@ -9,8 +9,8 @@ REWARD_DELIVERED_PASSENGER = 2
 NUM_FLOORS = 12
 NUM_ELEVATORS = 4
 ELEVATOR_MAX_CAPACITY = 20
-# One of mixed, interfloor, up-peak, and down-peak (case sensitive)
-TRAFFIC_PROFILE = "mixed"
+# One of mixed, interfloor, up-peak, down-peak, and custom (case sensitive)
+TRAFFIC_PROFILE = "custom"
 
 # Benchmark agent config
 # Must be one of rr (Round Robin), rand (Random Policy), sz (Static Zoning), up (Up-Peak), nc (Nearest Car), and eta (ETA) 

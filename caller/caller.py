@@ -2,6 +2,7 @@ import settings as s
 from abc import ABC, abstractmethod
 from enum import Enum, auto
 from random import randint
+from typing import Optional, Tuple
 
 class Call(Enum):
     """Types of calls."""
@@ -18,5 +19,5 @@ class Caller:
         return randint(1, s.AVERAGE_CALL_FREQUENCY) == s.AVERAGE_CALL_FREQUENCY
 
     @abstractmethod
-    def generate_call(self):
+    def generate_call(self) -> Tuple[Optional[int], Optional[int]]:
         pass
