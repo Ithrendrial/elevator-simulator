@@ -11,16 +11,15 @@ class CustomCaller(Caller):
     * 20:00-07:00: low fixed per-tick probability for night calls.
     * 07:00-08:00: smooth ramp-up to the 08:00 peak.
     * 08:00-20:00: 10-minute spike at the start of every hour, lower baseline in between.
-    * 20:00-20:30: smooth ramp-down from the 20:00 peak.
+    * 20:00-21:00: smooth ramp-down from the 20:00 peak.
     """
 
     DAY_SECONDS = 24 * 60 * 60
-    DAY_START_SECONDS = 8 * 60 * 60
-    DAY_END_SECONDS = 20 * 60 * 60
-    NIGHT_END_SECONDS = 8 * 60 * 60
-    SPIKE_DURATION_SECONDS = 10 * 60
-    MORNING_RAMP_START_SECONDS = 7 * 60 * 60
-    EVENING_RAMP_END_SECONDS = 20 * 60 * 60 + 30 * 60
+    DAY_START_SECONDS = 8 * 60 * 60 # Classes start at 8:00am, night ends
+    DAY_END_SECONDS = 20 * 60 * 60 # Classes end at 8:00pm, night starts
+    SPIKE_DURATION_SECONDS = 10 * 60 # Spikes between classes last 10 minutes
+    MORNING_RAMP_START_SECONDS = 7 * 60 * 60 # Slow ramp up between 7am and 8am as early people arrive.
+    EVENING_RAMP_END_SECONDS = 21 * 60 * 60 # Slow ramp down after the last class until 9:00pm.
 
     NIGHT_CALL_PROB_PER_TICK = 0.00017
     NIGHT_CALLS_PER_HOUR = 0.5
@@ -75,7 +74,7 @@ class CustomCaller(Caller):
 
         final_spike_end = self.DAY_END_SECONDS + self.SPIKE_DURATION_SECONDS
 
-        # 20:30-07:30 is handled separately via fixed per-tick night probability.
+        # 21:00-07:00 is handled separately via fixed per-tick night probability.
         if time_of_day >= self.EVENING_RAMP_END_SECONDS or time_of_day < self.MORNING_RAMP_START_SECONDS:
             return self.NIGHT_CALLS_PER_HOUR
 
@@ -100,7 +99,7 @@ class CustomCaller(Caller):
         if self.DAY_END_SECONDS <= time_of_day < final_spike_end:
             return self.SPIKE_CALLS_PER_HOUR
 
-        # 20:10-20:30 smooth ramp-down to near-night levels.
+        # 20:10-21:00 smooth ramp-down to near-night levels.
         if final_spike_end <= time_of_day < self.EVENING_RAMP_END_SECONDS:
             progress = (time_of_day - final_spike_end) / (
                 self.EVENING_RAMP_END_SECONDS - final_spike_end

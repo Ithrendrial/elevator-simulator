@@ -18,6 +18,7 @@ from matplotlib.ticker import MaxNLocator
 
 BIN_SECONDS = 10 * 60
 DAY_SECONDS = 24 * 60 * 60
+FONT_SIZE = 16
 
 
 def read_calls(csv_path):
@@ -88,6 +89,7 @@ def main():
 	bar_width = BIN_SECONDS
 	x_positions = [x + (BIN_SECONDS - bar_width) / 2 for x in x_seconds]
 
+	plt.rcParams.update({"font.size": FONT_SIZE})
 	plt.figure(figsize=(14, 5))
 	plt.bar(
 		x_positions,

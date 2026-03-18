@@ -53,8 +53,8 @@ def test_custom_caller_profile_shape():
     days = 120
     call_times = _collect_call_times(days=days)
 
-    # Night baseline period from 20:30 to 07:00 should average about 2-3 calls/night.
-    overnight_calls = _avg_calls_per_day_in_window(call_times, days, 20 * 3600 + 30 * 60, 24 * 3600)
+    # Night baseline period from 21:00 to 07:00 should average about 2-3 calls/night.
+    overnight_calls = _avg_calls_per_day_in_window(call_times, days, 21 * 3600, 24 * 3600)
     overnight_calls += _avg_calls_per_day_in_window(call_times, days, 0, 7 * 3600)
     assert 2.0 <= overnight_calls <= 3.0
 
